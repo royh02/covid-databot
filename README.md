@@ -1,4 +1,4 @@
-# covid-databot
+# COVID Databot
 A simple WIP bot that scrapes worldometers.info/coronavirus for live stats.
 
 ## Libraries used (discord.py)
