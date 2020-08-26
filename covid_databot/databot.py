@@ -9,10 +9,10 @@ import os
 
 # discord.py import
 import discord
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # establish client connection
-TOKEN = 'NzIxMTIwMjQ3NDEwNzIwNzc4.XuVMqw.KqNNqaVSfj_wxpBGiTSAd9oqcZQ'
+TOKEN = 'NzIxMTIwMjQ3NDEwNzIwNzc4.XuP5kA.TdxXBXNOAAiSr92k2Xj3He0oOC8'
 
 client = discord.Client()
 
@@ -54,9 +54,9 @@ async def on_ready():
 async def on_message(msg):
     channel = msg.channel
 
-    # check country is valid
+    """ # check country is valid
     async def check_country(c):
-        return c in country_names
+        return c in country_names """
 
     # don't reply to the bot itself
     if msg.author == client.user:
@@ -79,9 +79,10 @@ async def on_message(msg):
 
         country = " ".join(raw_country)
         print(country)
+        print(country_names)
 
         if msg.content.startswith("!covid stats total_cases"):
-            if check_country(country):
+            if country in country_names:
                 cases = str(total_cases[country_names.index(country)])
                 bot_msg = ('{0.author.mention} There are currently ' + cases + ' total confirmed cases in ' + country).format(msg)
 
@@ -91,7 +92,7 @@ async def on_message(msg):
                 await channel.send('{0.author.mention}, that was not a valid country! Please check spelling.')
 
         elif msg.content.startswith("!covid stats active_cases"):
-            if check_country(country):
+            if country in country_names:
                 active = str(active_cases[country_names.index(country)])
                 bot_msg = ('{0.author.mention} There are currently ' + active + ' active cases in ' + country).format(msg)
 
@@ -100,7 +101,7 @@ async def on_message(msg):
                 await channel.send('{0.author.mention}, that was not a valid country! Please check spelling.')
 
         elif msg.content.startswith("!covid stats deaths"):
-            if check_country(country):
+            if country in country_names:
                 deaths = str(total_deaths[country_names.index(country)])
                 bot_msg = ('{0.author.mention} There are currently ' + deaths + ' confirmed deaths in ' + country).format(msg)
 
