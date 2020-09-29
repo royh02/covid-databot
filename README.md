@@ -7,6 +7,10 @@ A simple WIP bot that scrapes https://worldometers.info/coronavirus for live sta
 - BeautifulSoup (bs4)
 - Panda
 
+## UPDATE!
+
+I have switched over to retrieving data from https://corona-api.com/. Will be looking to work with other APIs
+
 ## Invite this bot
 
 Here is the link:

@@ -5,7 +5,7 @@ from random import seed
 from random import random
 
 # establish client connection
-TOKEN = 'NzIxMTIwMjQ3NDEwNzIwNzc4.XuP5kA.5tRhKC2AtrkpdYkdhrurBCYvsHc'
+TOKEN = 'NzIxMTIwMjQ3NDEwNzIwNzc4.XuP5kA.x3QaHfjPIIabl2s72_-PXI2jqCY'
 
 client = discord.Client()
 seed(4)
@@ -15,6 +15,8 @@ name_code_pair = {}
 for c in country_codes_raw:
     name_code_pair[c['Name']] = c['Code']
 
+# for covid fun
+infected = []
 
 @client.event
 async def on_ready():
@@ -45,16 +47,26 @@ async def on_message(message):
                        str(deaths) + ' total confirmed **deaths** in ' + req_country).format(message)
             await message.channel.send(bot_msg)
 
+    
     if message.content.startswith('covid has_covid'):
-        
+        global infected
         i = random()
+        patient = message.content.split()[2]
+        confirmed = patient in infected
         print(i)
-        if i > 0.5:
-            bot_msg = (message.content.split()[2] + 
+        print(infected)
+        if i > 0.5 or confirmed:
+            bot_msg = (patient + 
                         ' has the coronavirus! Quarantine this fella fast!').format(message)
+            if not confirmed:
+                infected.append(patient)
         else:
-            bot_msg = (message.content.split()[2] +
+            bot_msg = (patient +
                         ' has dodged a bullet! The lab results say negative for COVID-19!').format(message)
         await message.channel.send(bot_msg)
+
+    if message.content.startswith('covid miracle_cure'):
+        infected = []
+        await message.channel.send("All cases of covid has been cured...for now hehehehe")
 
 client.run(TOKEN)
