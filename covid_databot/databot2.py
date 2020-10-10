@@ -1,11 +1,15 @@
 import discord
 import requests
 import json
+import os
 from random import seed
 from random import random
+from dotenv import load_dotenv
+from decouple import config
 
 # establish client connection
-TOKEN = 'NzIxMTIwMjQ3NDEwNzIwNzc4.XuP5kA.x3QaHfjPIIabl2s72_-PXI2jqCY'
+TOKEN = config("TOKEN")
+print(TOKEN)
 
 client = discord.Client()
 seed(4)
@@ -29,7 +33,10 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.content == 'covid help':
-        await message.channel.send("i wanna help but i need it too :'(")
+        await message.channel.send("to be implemented soon in embed mode")
+
+    if message.content == 'covid country_list':
+        await message.channel.send("to be implemented soon in embed mode")
     if message.content.startswith('covid stats'):
         req_country = message.content.split()[3]
         r = requests.get('https://corona-api.com/countries/' + name_code_pair[req_country])
