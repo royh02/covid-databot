@@ -33,27 +33,44 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.content == 'covid help':
-        await message.channel.send("to be implemented soon in embed mode")
+        help_msg = discord.Embed(
+            title = 'Useful Commands',
+            description = '(Prefix `covid`)\n Here are some cool commands you can use to get some good COVID data',
+            colour = discord.Colour.red()            
+        )
+        help_msg.set_footer(text='Data from: https://about-corona.net/')
+        help_msg.add_field(name='Command',
+                            value='help\n'+
+                                  'stats total_cases <country>\n'+
+                                  'stats total_deaths <country>',
+                            inline=True)
+        help_msg.add_field(name='Description',
+                            value='This command\n'+
+                                  'Gets total confirmed cases in <country>\n'+
+                                  'Gets total confiremd deaths in <country>', 
+                            inline=True)
+        await message.channel.send(embed=help_msg)
 
     if message.content == 'covid country_list':
         await message.channel.send("to be implemented soon in embed mode")
     if message.content.startswith('covid stats'):
-        req_country = message.content.split()[3]
+        req_country = message.content.split()[2]
         r = requests.get('https://corona-api.com/countries/' + name_code_pair[req_country])
         json_data = json.loads(r.text)['data']
-
-        if message.content.startswith('covid stats total_cases'):
-            cases = json_data['latest_data']['confirmed']
-            bot_msg = ('{0.author.mention} There are currently ' +
-                       str(cases) + ' total confirmed **cases** in ' + req_country).format(message)
-            await message.channel.send(bot_msg)
+        cases = json_data['latest_data']['confirmed']
+        deaths = json_data['latest_data']['deaths']
+        stats = discord.Embed(
+            title=req_country,
+            description='Some stats for ' + req_country,
+            colour = discord.Colour.red()
+        )
+        stats.set_thumbnail(
+            url='https://www.countryflags.io/{0}/flat/64.png'.format(name_code_pair[req_country]))
+        stats.set_footer(text='Data from: https://about-corona.net/')
+        stats.add_field(name='Total Cases Confirmed',value=str(cases))
+        stats.add_field(name='Total Deaths Confirmed',value=str(deaths))
         
-        elif message.content.startswith('covid stats total_deaths'):
-            deaths = json_data['latest_data']['deaths']
-            bot_msg = ('{0.author.mention} There are currently ' +
-                       str(deaths) + ' total confirmed **deaths** in ' + req_country).format(message)
-            await message.channel.send(bot_msg)
-
+        await message.channel.send(embed=stats)
     
     if message.content.startswith('covid has_covid'):
         global infected
