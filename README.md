@@ -4,7 +4,7 @@ A simple WIP bot that gets data from https://corona-api.com/ for live stats.
 ## Local Setup
 First, you will need to create a `.env` file , in which you put your discord token.
 ```
-TOKEN = <your token>
+TOKEN=<your token>
 ```
 Just run a simple one-liner to automatically get started!
 ```
