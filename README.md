@@ -1,15 +1,16 @@
 # COVID Databot
-A simple WIP bot that scrapes https://worldometers.info/coronavirus for live stats.
+A simple WIP bot that gets data from https://corona-api.com/ for live stats.
 
-## Libraries used (discord.py)
+## Local Setup
+First, you will need to create a `.env` file , in which you put your discord token.
+```
+TOKEN = <your token>
+```
+Just run a simple one-liner to automatically get started!
+```
+$ python3 databot2.py 
+```
 
-- selenium.py
-- BeautifulSoup (bs4)
-- Panda
-
-## UPDATE!
-
-I have switched over to retrieving data from https://corona-api.com/. Will be looking to work with other APIs
 
 ## Invite this bot
 
