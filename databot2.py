@@ -11,7 +11,6 @@ from matplotlib.dates import AutoDateFormatter, AutoDateLocator, ConciseDateForm
 
 # establish bot connection
 TOKEN = config("TOKEN")
-print(TOKEN)
 
 bot = commands.Bot(command_prefix='covid ')
 
@@ -31,7 +30,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    #await bot.change_presence(activity=discord.Game(name="type \"covid help\""))
+    await bot.change_presence(activity=discord.Activity(name="\"covid help\""))
 
 
 
@@ -163,7 +162,7 @@ async def stats(ctx, *args):
         colour=discord.Colour.red()
     )
     embed.set_thumbnail(
-        url='https://www.countryflags.io/{0}/flat/64.png'.format(name_code_pair[req_country]))
+        url=f'https://flagcdn.com/h240/{name_code_pair[req_country].lower()}.png')
     embed.set_footer(text='Data from: https://about-corona.net/')
     embed.add_field(name='Total Cases Confirmed', value="{:,}".format(latest_confirmed))
     embed.add_field(name='Total Deaths Confirmed', value="{:,}".format(latest_deaths))
